@@ -36,14 +36,32 @@ def index():
     else:
         tasks = ToDo.query.order_by(ToDo.date_created).all()
         return render_template('index.html', tasks=tasks)
-    # name = request.args.get("name", "World")
-    # return f'Hello, {escape(name)}!'
 
-# @app.route('/api/wings', methods = [ 'POST', 'GET' ])
-# def wings():
-#     if request.method == 'POST':
-#         return 'lkdfl'
-#     return 'sdfsd'
+@app.route('/delete/<int:id>')
+def delete(id):
+    task_to_delete = ToDo.query.get_or_404(id)
+    try:
+        db.session.delete(task_to_delete)
+        db.session.commit()
+        return redirect('/')
+    except:
+        return 'There was a problem deleting the task'
+
+@app.route('/update/<int:id>', methods=['GET', 'POST'])
+def update(id):
+    task = ToDo.query.get_or_404(id)
+
+    if request.method == 'POST':
+        task.content = request.form['content']
+
+        try:
+            db.session.commit()
+            return redirect('/')
+        except:
+            return 'There was an issue updating the task'
+    else:
+        return render_template('update.html', task=task)
+
 
 if __name__ == "__main__":
     app.run(debug=True)
