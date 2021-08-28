@@ -1,7 +1,7 @@
 from flask import Flask, render_template, url_for, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
-
+#URL for is to link style sheet in base.html
 from werkzeug.utils import redirect
 
 app = Flask(__name__) #this just references this file
@@ -19,6 +19,9 @@ class ToDo(db.Model):
 
     def __repr__(self):
         return '<Task %r>' % self.id
+    #function that returns a string (task) every time we create a new element
+    #along with the id of the task that has just been created
+
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
