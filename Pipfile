@@ -1,0 +1,18 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[scripts]
+dev = "sh -c \"export FLASK_ENV='development' && flask run\""
+
+[packages]
+flask = "*"
+sqlalchemy = "*"
+flask-sqlalchemy = "*"
+datetime = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.9"
